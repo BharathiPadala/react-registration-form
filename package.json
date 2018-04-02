@@ -18,8 +18,6 @@
   },
   "homepage": "https://github.com/BharathiPadala/react-registration-form#readme",
   "dependencies": {
-    "@fortawesome/fontawesome": "^1.1.5",
-    "@fortawesome/react-fontawesome": "0.0.18",
     "react": "^16.3.0",
     "react-dom": "^16.3.0"
   },
@@ -29,9 +27,10 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.11",
+    "react-fontawesome": "^1.6.1",
+    "react-icons": "^2.2.7",
     "style-loader": "^0.20.3",
     "webpack": "^4.4.1",
-    "webpack-cli": "^2.0.13",
-    "react-fontawesome": "^1.6.1"
+    "webpack-cli": "^2.0.13"
   }
 }

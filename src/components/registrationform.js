@@ -1,8 +1,6 @@
 import React,{Component} from 'react';
-import fontawesome from '@fortawesome/fontawesome';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
- 
-import FontAwesome from 'react-fontawesome';
+
+import * as FontAwesome from 'react-icons/lib/fa'
 
 class RegistrationForm extends React.Component {
     constructor(props) {
@@ -78,8 +76,6 @@ class RegistrationForm extends React.Component {
             error.textContent = `${label} is a required field`; 
           } else if (validity.typeMismatch) {
             error.textContent = `${label} should be a valid email address`; 
-          } else if (isPassword && validity.patternMismatch) {
-            error.textContent = `${label} should be longer than 4 chars`; 
           } else if (isPasswordConfirm && validity.customError) {
             error.textContent = 'Passwords do not match';
           }
@@ -95,26 +91,37 @@ class RegistrationForm extends React.Component {
           <main>
             <article>
                 <section>
-                    <form novalidate className='registrationform'>
+                    <form className='registrationform'>
                         <hgroup>
                             <h2>Register</h2>
                             <h5>Join the community and improve your game with ANGLR</h5>                                 
                         </hgroup>
+                        <div className="inputfield">
+                        <span><FontAwesome.FaUser /></span>
                         <input 
                            type="text" 
                            ref="fname" 
                            name="firstname" 
                            placeholder="First Name"/>
+                        </div>
+                        <div className="inputfield">
+                        <span><FontAwesome.FaUser /></span>
                         <input 
                            type="text" 
                            ref="lname" 
                            name="lastname" 
                            placeholder="Last name"/>
+                        </div>                 
+                        <div className="inputfield">
+                        <span><FontAwesome.FaMapMarker /></span>
                         <input 
                            type="text" 
                            ref="zip" 
                            name="zipcode" 
                            placeholder="Zip Code"/>
+                        </div>
+                        <div className="inputfield">
+                        <span><FontAwesome.FaEnvelope /></span>
                         <input 
                            type="email" 
                            ref="email" 
@@ -124,15 +131,21 @@ class RegistrationForm extends React.Component {
                            value={this.state.email} 
                            onChange={this.handleChange} 
                            required/> 
+                        </div>
+                        <div className="inputfield">
+                        <span><FontAwesome.FaUser /></span>
                         <input 
                            type="text" 
                            ref="username" 
                            name="username"
                            className="requiredFiled" 
-                           placeholder="User Name" 
+                           placeholder="Username" 
                            value={this.state.username}
                            onChange={this.handleChange} 
                            required/>
+                        </div>
+                        <div className="inputfield">
+                        <span><FontAwesome.FaUnlockAlt /></span>
                         <input 
                            type="password" 
                            ref="password" 
@@ -142,6 +155,9 @@ class RegistrationForm extends React.Component {
                            value={this.state.password}
                            onChange={this.handleChange} 
                            required/>
+                        </div>
+                        <div className="inputfield">
+                        <span><FontAwesome.FaLock /></span>
                         <input 
                            type="password" 
                            ref="passwordConfirm" 
@@ -151,7 +167,7 @@ class RegistrationForm extends React.Component {
                            value={this.state.passwordConfirm}
                            onChange={this.handleChange} 
                            required/>
-                                    
+                        </div>          
                         <p>By registering you agree to our <strong>Terms</strong> and <strong>Privacy Policy</strong></p>
                         <div className="errorSection">
                          <div className="error" id="emailError" />
