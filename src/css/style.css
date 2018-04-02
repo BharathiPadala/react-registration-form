@@ -14,6 +14,12 @@ body{
     top: 17px;
     left: 5px;
 }
+.inputfield>i{    
+    position: absolute;
+    top: 17px;
+    float:right;
+    right:20px;
+}
 
 .registrationform{
     width:400px;    
@@ -71,4 +77,9 @@ input.active:invalid {
     background-color:#cc3c37;
     border-radius: 4px;
 }
-
+.invisible{
+    display:none;
+}
+.warning{   
+    color:red;
+}

@@ -2,22 +2,31 @@ import React,{Component} from 'react';
 
 import * as FontAwesome from 'react-icons/lib/fa'
 
+function contentClass(isShow) {
+  if (isShow) {
+    return "warning";
+  }
+  return "warning invisible";
+}
+
 class RegistrationForm extends React.Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            email:'',
+          email:'',
           username: '',
           password: '',
-          passwordConfirm: ''
+          confirmPassword: '',
+          isShow: false
         };
         
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeInput = this.handleChangeInput.bind(this);
+        this.formSubmit = this.formSubmit.bind(this);
+                
       }
       
-      handleChange(e) {
+      handleChangeInput(e) {
         e.target.classList.add('active');
         
         this.setState({
@@ -27,22 +36,19 @@ class RegistrationForm extends React.Component {
         this.showInputError(e.target.name);
       }
       
-      handleSubmit(e) {    
+      formSubmit(e) {    
         e.preventDefault();
-        
-        console.log('component state', JSON.stringify(this.state));
-        
         if (!this.showFormErrors()) {
-          console.log('form is invalid: do not submit');
-        } else {
-          console.log('form is valid: submit');
+          console.log('form is invalid:Please fill mandatory fields');
         }
+        this.setState(function(prevState) {
+          return {isShow: !prevState.isShow};
+        });
       }
       
       showFormErrors() {
         const inputs = document.querySelectorAll('input.requiredFiled');
         let isFormValid = true;
-        
         inputs.forEach(input => {
           input.classList.add('active');
           
@@ -61,13 +67,13 @@ class RegistrationForm extends React.Component {
         const label= refName;
         const error = document.getElementById(`${refName}Error`);
         const isPassword = refName.indexOf('password') !== -1;
-        const isPasswordConfirm = refName === 'passwordConfirm';
+        const isPasswordConfirm = refName === 'confirmPassword';
         
         if (isPasswordConfirm) {
-          if (this.refs.password.value !== this.refs.passwordConfirm.value) {
-            this.refs.passwordConfirm.setCustomValidity('Passwords do not match');
+          if (this.refs.password.value !== this.refs.confirmPassword.value) {
+            this.refs.confirmPassword.setCustomValidity('Password and Confirm Password must be same');
           } else {
-            this.refs.passwordConfirm.setCustomValidity('');
+            this.refs.confirmPassword.setCustomValidity('');
           }
         }
             
@@ -77,7 +83,7 @@ class RegistrationForm extends React.Component {
           } else if (validity.typeMismatch) {
             error.textContent = `${label} should be a valid email address`; 
           } else if (isPasswordConfirm && validity.customError) {
-            error.textContent = 'Passwords do not match';
+            error.textContent = 'Password and Confirm Password must be same';
           }
           return false;
         }
@@ -129,8 +135,9 @@ class RegistrationForm extends React.Component {
                            className="requiredFiled"
                            placeholder="Email" 
                            value={this.state.email} 
-                           onChange={this.handleChange} 
+                           onChange={this.handleChangeInput} 
                            required/> 
+                           <i className={contentClass(this.state.isShow)}><FontAwesome.FaExclamationTriangle/></i>
                         </div>
                         <div className="inputfield">
                         <span><FontAwesome.FaUser /></span>
@@ -141,8 +148,9 @@ class RegistrationForm extends React.Component {
                            className="requiredFiled" 
                            placeholder="Username" 
                            value={this.state.username}
-                           onChange={this.handleChange} 
+                           onChange={this.handleChangeInput} 
                            required/>
+                           <i className={contentClass(this.state.isShow)}><FontAwesome.FaExclamationTriangle/></i>
                         </div>
                         <div className="inputfield">
                         <span><FontAwesome.FaUnlockAlt /></span>
@@ -153,29 +161,31 @@ class RegistrationForm extends React.Component {
                            className="requiredFiled" 
                            placeholder="Password" 
                            value={this.state.password}
-                           onChange={this.handleChange} 
+                           onChange={this.handleChangeInput} 
                            required/>
+                           <i className={contentClass(this.state.isShow)}><FontAwesome.FaExclamationTriangle/></i>
                         </div>
                         <div className="inputfield">
                         <span><FontAwesome.FaLock /></span>
                         <input 
                            type="password" 
-                           ref="passwordConfirm" 
-                           name="passwordConfirm" 
+                           ref="confirmPassword" 
+                           name="confirmPassword" 
                            className="requiredFiled"
                            placeholder="Confirm Password" 
-                           value={this.state.passwordConfirm}
-                           onChange={this.handleChange} 
+                           value={this.state.confirmPassword}
+                           onChange={this.handleChangeInput} 
                            required/>
+                           <i className={contentClass(this.state.isShow)}><FontAwesome.FaExclamationTriangle/></i>
                         </div>          
                         <p>By registering you agree to our <strong>Terms</strong> and <strong>Privacy Policy</strong></p>
                         <div className="errorSection">
                          <div className="error" id="emailError" />
                          <div className="error" id="usernameError" />
                          <div className="error" id="passwordError" />
-                         <div className="error" id="passwordConfirmError" />
+                         <div className="error" id="confirmPasswordError" />
                       </div> 
-                      <input type="submit" value="Register" onClick={ this.handleSubmit }/>
+                      <input type="submit" value="Register" onClick={ this.formSubmit }/>
                       
                         <hr/>
                         <p>Already have an account? <strong>SIGN IN</strong></p>
